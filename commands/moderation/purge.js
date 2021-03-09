@@ -1,8 +1,8 @@
+const { MESSAGES } = require("../../utils/functions/constantes/constants");
 const { MessageEmbed } = require("discord.js");
 
 
 module.exports.run = async (client, message, args) => {
-    console.log(args[0])
     if(isNaN(args[0]) || (args[0] < 1 || args[0] > 100)) return message.reply('Il faut un nombre entre 1 et 100.');
     const messages = await message.channel.messages.fetch({
         limit: Math.min(args[0]),
@@ -22,13 +22,4 @@ module.exports.run = async (client, message, args) => {
 
 
 
-module.exports.help = {
-    name: 'purge', 
-    aliases: ['p', 'erase', 'clear'],
-    category: 'moderation',    
-    description: 'Supprime un nombre x de messages entre 1 et 100',
-    usage: '<nbr_de_messages_entre_1_et_100>',
-    args: true,
-    hasMention: false,
-    permissions: false,
-}
+module.exports.help = MESSAGES.COMMANDS.MODERATION.PURGE;
