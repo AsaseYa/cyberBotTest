@@ -78,17 +78,6 @@ client.on("message", (message) => {
     return noArgs(client, message, command);
 }
 
-
-  // utilisé lorsque command a isUserAdmin: true / currently aucun isUserAdmin
-  //vérifie si l'utilisateur est mentionné 
-  //if(/**command.help.isUserAdmin && **/!user) return message.reply(`Il faut mentionner un utilisateur: voici la structure: \`${PREFIX}${command.help.name} ${command.help.usage}\``);
-
-  //Si l'utilisateur  sur lequel la commande est utilisée = admin(BAN_MEMBER)
-  /**if (command.help.isUserAdmin && message.guild.member(user).hasPermission('BAN_MEMBERS')) {
-    return message.reply("Tu ne peux pas utiliser cette commande sur cet utilisateur.");
-  }**/
-
-
   command.run(client, message, args, commandName, PREFIX); //run la commande
 });
 
