@@ -1,53 +1,88 @@
 const { Collection } = require("discord.js"); //import le bot et les collections
-const { noMention, noArgs, noPermissions } = require("../../utils/functions/failFunction");
-
+const {
+     noMention,
+     noArgs,
+     noPermissions,
+} = require("../../utils/functions/failFunction");
 
 module.exports = async (client, message) => {
-  const settings = await client.getGuild(message.guild);
+     //si le msg est en DM
+     if (message.channel.type === "dm")
+          return client.emit("directMessage", message);
+          
 
-  if (message.channel.type === 'dm') return client.emit("directMessage", message);
-  
-  // si ça ne commence pas par le préfix ou envoyé par le bot
-  if (message.author.bot || !message.content.startsWith(settings.prefix)) return;
+     const settings = await client.getGuild(message.guild);
+     const dbUser = await client.getUser(message.member);
 
 
+     //si l'author est le bot
+     if (message.author.bot) return;
 
-  //Remove settings.prefix et divise str en array pour séparer arguments
-  const args = message.content.slice(settings.prefix.length).split(/ +/);
+     //création de l'utilisateur dan la base de donnée
+     if (!dbUser)
+          await client.createUser({
+               guildID: message.member.guild.id,
+               guildName: message.member.guild.name,
+               userID: message.member.id,
+               username: message.member.user.tag,
+          });
 
-  //Separe en array les éléments et les lower case
-  const commandName = args.shift().toLowerCase();
+     const expCd = Math.floor(Math.random() * 19) + 1; //1 -20
+     const expToAdd = Math.floor(Math.random() * 25) + 10; //10 - 35
 
-  //crée user pour vérification
-  const user = message.mentions.users.first();
+     //Incremente l'Exp si entre 8 et 11
+     if (expCd >= 8 && expCd <= 11) {
+          await client.addExp(client, message.member, expToAdd);
+     }
 
-  //stock la commande ou aliases dans command
-  const command =
-    client.commands.get(commandName) ||
-    client.commands.find(
-      (cmd) => cmd.help.aliases && cmd.help.aliases.includes(commandName)
-    );
+     const userLevel = Math.floor(0.1 * Math.sqrt(dbUser.experience));
+     if (dbUser.level < userLevel) {
+          message.reply(
+               `Bravo, tu viens de gagner un niveau d'accréditation. Tu es maintenant niveau \`${userLevel}\`. La France est fier de toi!`
+          );
+          client.updateUser(message.member, { level: userLevel });
+     }
 
-  //si la commande n'existe pas ou s'il n'y a pas d'argument
-  if (!command) return (`La commande ${command} n'existe pas.`)
+     // si ça ne commence pas par le préfix ou envoyé par le bot
+     if (!message.content.startsWith(settings.prefix)) return;
 
-  //Si permissions: true
-  if (
-    command.help.permissions &&
-    !message.member.hasPermission("BAN_MEMBERS")
-  ) {
-    return noPermissions(message, command, settings);
-  }
+     //Remove settings.prefix et divise str en array pour séparer arguments
+     const args = message.content.slice(settings.prefix.length).split(/ +/);
 
-  //Si hasMention: true
-  if (command.help.hasMention && !user) {
-    return noMention(message, command, settings);
-  }
+     //Separe en array les éléments et les lower case
+     const commandName = args.shift().toLowerCase();
 
-  //Si args: True
-  if (command.help.args && !args.length) {
-    return noArgs(message, command, settings);
-  }
+     //crée user pour vérification
+     const user = message.mentions.users.first();
 
-  command.run(client, message, args, settings); //run la commande
+     //stock la commande ou aliases dans command
+     const command =
+          client.commands.get(commandName) ||
+          client.commands.find(
+               (cmd) =>
+                    cmd.help.aliases && cmd.help.aliases.includes(commandName)
+          );
+
+     //si la commande n'existe pas ou s'il n'y a pas d'argument
+     if (!command) return `La commande ${command} n'existe pas.`;
+
+     //Si permissions: true
+     if (
+          command.help.permissions &&
+          !message.member.hasPermission("BAN_MEMBERS")
+     ) {
+          return noPermissions(message, command, settings);
+     }
+
+     //Si hasMention: true
+     if (command.help.hasMention && !user) {
+          return noMention(message, command, settings);
+     }
+
+     //Si args: True
+     if (command.help.args && !args.length) {
+          return noArgs(message, command, settings);
+     }
+
+     command.run(client, message, args, settings, dbUser); //run la commande
 };

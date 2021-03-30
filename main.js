@@ -1,11 +1,11 @@
 require("dotenv").config();
-const { Client, Collection } = require("discord.js");
+const { Client, Collection, Guild } = require("discord.js");
 const {
-  loadCommands,
-  loadEvents,
+     loadCommands,
+     loadEvents,
 } = require("./utils/functions/handler/loader"); //Import les commands et events handler
 
-const client = new Client(); //crée le bot
+const client = new Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] }); //crée le bot
 require("./utils/functions/functions")(client);
 client.config = require("./config");
 client.mongoose = require("./utils/functions/mongo/mongoose");
@@ -19,5 +19,6 @@ loadCommands(client);
 loadEvents(client);
 
 client.mongoose.init();
+
 
 client.login(process.env.DISCORD_TOKEN);
