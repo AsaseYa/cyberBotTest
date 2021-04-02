@@ -1,4 +1,4 @@
-const { MESSAGES } = require("../../utils/functions/constantes/constants");
+const { MESSAGES } = require("../../utils/constantes/constants");
 const { diceFunction } = require("../../utils/functions/diceFunction");
 
 module.exports.run = (client, message, args, settings) => {

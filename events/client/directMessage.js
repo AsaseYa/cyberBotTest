@@ -1,11 +1,13 @@
 const { MessageEmbed } = require("discord.js");
 
 module.exports = (client, message) => {
+     if (message.author.bot) return;
+     return message.channel.send("Il n'y a pas d'interaction en privé. Si tu as des suggestions ou des idées, fais-nous un retour sur le discord.");
+     
 
-    const user = message.author;
-     user.send("Il n'y a pas d'interaction en privé. Si tu as des suggestions ou des idées, fais-nous un retour sur le discord.");
+     
 
-     /*if (user.bot) return;
+     /*
 
      const embed = new MessageEmbed()
           .setAuthor(`${user.username} (${user.id})`)

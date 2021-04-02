@@ -1,22 +1,32 @@
 const MESSAGES = {
      COMMANDS: {
           ADMIN: {
+               CONFGUILD: {
+                    name: "confguild",
+                    aliases: ["confguild"],
+                    category: "admin",
+                    description: "Modifie le serveur sur la base de donnée",
+                    usage: "<list>",
+                    args: true,
+                    hasMention: false,
+                    permissions: true,
+               },
+               CONFROLES: {
+                    name: "confroles",
+                    aliases: ["confroles"],
+                    category: "admin",
+                    description: "Modifie les roles sur la base de donnée",
+                    usage: "<list>",
+                    args: true,
+                    hasMention: false,
+                    permissions: true,
+               },
                EVAL: {
                     name: "eval",
                     aliases: ["eval"],
                     category: "admin",
                     description: "Renvoie un code javascript testé",
                     usage: "<key> <value>",
-                    args: true,
-                    hasMention: false,
-                    permissions: true,
-               },
-               CONFIG: {
-                    name: "config",
-                    aliases: ["config"],
-                    category: "admin",
-                    description: "Modifier la base de donnée",
-                    usage: "<code_to_test>",
                     args: true,
                     hasMention: false,
                     permissions: true,
@@ -30,6 +40,18 @@ const MESSAGES = {
                     args: false,
                     hasMention: false,
                     permissions: true,
+               },
+          },
+          BOT: {
+               AVATAR: {
+                    name: "avatar",
+                    aliases: ["avatar"],
+                    category: "bot",
+                    description: "Change l'avatar du bot",
+                    usage: "<URL_du_nouvel_avatar_en_png_jpeg_ou_jpg>",
+                    args: true,
+                    hasMention: false,
+                    permissions: false,
                },
           },
           COLLECTORS: {
@@ -105,7 +127,7 @@ const MESSAGES = {
                },
                REMOVEEXPERIENCE: {
                     name: "removeexperience",
-                    aliases: ['removexp', 'rxp'],
+                    aliases: ['removexp', 'rmxp'],
                     category: 'experience',
                     description: "Enlève de l'expérience à l'utilisateur",
                     usage: '<@user> <exp_to_remove>',
@@ -232,7 +254,7 @@ const MESSAGES = {
           MUSIC: {
                PLAY: {
                     name: "play",
-                    aliases: ["skip", "stop"],
+                    aliases: ["skip", "stop", "playlist"],
                     category: "music",
                     description: "Play une musique",
                     usage: "<url_YT>",
@@ -244,11 +266,11 @@ const MESSAGES = {
           ORGANISATION: {
                WEEKEVENT: {
                     name: "weekevent",
-                    aliases: ["wevent", "we"],
-                    category: "misc",
-                    description: "le bot crée un poll",
-                    usage: "<#channel> <votre_question>",
-                    args: false,
+                    aliases: ["weekevent", "wevent"],
+                    category: "organisation",
+                    description: "Organise un event",
+                    usage: "<description_de_ton_event>",
+                    args: true,
                     hasMention: false,
                     permissions: false,
                },

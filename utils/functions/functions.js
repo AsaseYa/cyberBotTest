@@ -88,15 +88,17 @@ module.exports = (client) => {
                .then((u) => console.log(`Nouveau role -> ${u.roleName}`));
      };
      client.getRole = async (role) => {
-          const data = await Role.findOne({ roleID: role.id });
+          const data = await Role.findOne({ roleID: role });
           if (data) return data;
           else return;
      };
      client.updateRole = async (role, settings) => {
           let data = await client.getRole(role);
           if (typeof data !== "object") data = {};
-          for (const key in settings) {
-               if (data[key] !== settings[key]) data[key] = settings[key];
+          if (settings) {
+               for (const key in settings) {
+                    if (data[key] !== settings[key]) data[key] = settings[key];
+               }
           }
           return data.updateOne(settings);
      };

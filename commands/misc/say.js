@@ -1,4 +1,4 @@
-const { MESSAGES } = require("../../utils/functions/constantes/constants");
+const { MESSAGES } = require("../../utils/constantes/constants");
 
 module.exports.run = (client, message, args) => {
      message.channel.send(args.join(" "));

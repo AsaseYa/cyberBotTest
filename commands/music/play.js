@@ -1,6 +1,7 @@
-const { MESSAGES } = require("../../utils/functions/constantes/constants");
+const { MESSAGES } = require("../../utils/constantes/constants");
 const ytdl = require("ytdl-core");
 const ytSearch = require("yt-search");
+const { MessageEmbed } = require("discord.js");
 
 //Global queue for your bot. Every server will have a key and value pair in this map. { guild.id, queue_constructor{} }
 const queue = new Map();
@@ -108,6 +109,23 @@ module.exports.run = async (client, message, args, settings) => {
           }
      } else if (commandMusic === "skip") skip_song(message, server_queue);
      else if (commandMusic === "stop") stop_song(message, server_queue);
+     else if (commandMusic === "playlist") {
+          if(!server_queue) return message.channel.send("Il n'y pas pas de musique dans la playlist")
+          let playlist = [];
+          let songsArray = server_queue.songs;
+          for (let i = 0; i < songsArray.length; i++) {
+               playlist.push(songsArray[i].title);
+          }
+          const embed = new MessageEmbed()
+               .setColor("#ff33d1")
+               .addField('Currently Playing', `\`${playlist[0]}\``)
+               .addField('In Queue', '\u200B')
+          playlist.shift()
+          for (let i=0; i<playlist.length; i++) {
+               embed.addField(`${i+1}: ${playlist[i]}`, '\u200B')
+          } 
+          message.channel.send(embed);
+     }
 };
 
 const video_player = async (guild, song) => {

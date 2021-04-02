@@ -1,4 +1,4 @@
-const { MESSAGES } = require("../../utils/functions/constantes/constants");
+const { MESSAGES } = require("../../utils/constantes/constants");
 const Canvas = require("canvas");
 const Discord = require("discord.js");
 

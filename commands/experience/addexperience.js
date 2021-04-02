@@ -1,5 +1,5 @@
 const user = require("../../models/user");
-const { MESSAGES } = require("../../utils/functions/constantes/constants");
+const { MESSAGES } = require("../../utils/constantes/constants");
 
 
 module.exports.run = async (client, message, args) => {

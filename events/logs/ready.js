@@ -3,7 +3,6 @@ module.exports = async (client) => {
      //client.channels.cache.get(settings.welcomeChannel).send("Le bot est opérationnel!")
 
      client.user.setPresence({ activity: {name: 'vos conversations', type: 'LISTENING'}, status: 'DND'});
-
      //console.log(client.getGuild(client.guilds.client));
 
      //const roles = RoleManager.cache.map(role => role.tag);

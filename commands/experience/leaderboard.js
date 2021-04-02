@@ -1,5 +1,5 @@
 const { MessageEmbed } = require("discord.js");
-const { MESSAGES } = require("../../utils/functions/constantes/constants");
+const { MESSAGES } = require("../../utils/constantes/constants");
 const { usernameWithoutTag } = require('../../utils/functions/usernameWithoutTag')
 
 
@@ -14,7 +14,6 @@ module.exports.run = async (client, message) => {
                embed.addField(usernameWithoutTag(e.username), `Niveau: ${e.level}`);
           }); 
      });
-     console.log(embed)
      message.channel.send(embed);
 
      /**

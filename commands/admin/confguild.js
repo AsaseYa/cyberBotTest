@@ -1,10 +1,15 @@
-const { MESSAGES } = require("../../utils/functions/constantes/constants");
+const { MESSAGES } = require("../../utils/constantes/constants");
 
 module.exports.run = async (client, message, args, settings) => {
      const getSetting = args[0];
      const newSetting = args.slice(1).join(" ");
      switch (getSetting) {
-          case "logChannel": {
+          case "list": {
+               message.author.send(`${settings.prefix}confguild <list | logChannel | prefix | welcomeChannel> <new_setting>`);
+               message.delete();
+               break;
+          }
+          case "roles": {
                if (newSetting) {
                     await client.updateGuild(message.guild, {
                          logChannel: newSetting,
@@ -48,4 +53,4 @@ module.exports.run = async (client, message, args, settings) => {
      }
 };
 
-module.exports.help = MESSAGES.COMMANDS.ADMIN.CONFIG;
+module.exports.help = MESSAGES.COMMANDS.ADMIN.CONFGUILD;

@@ -11,7 +11,7 @@ module.exports = async(client, channel) => {
 
           const latestChannelCreated = fetchGuildAuditLogs.entries.first();
           const { executor } = latestChannelCreated;
-          const settings = client.getGuild(channel.guild);
+          const settings = await client.getGuild(channel.guild);
 
           const embed = new MessageEmbed()
                .setAuthor("Création d'un nouveau salon")

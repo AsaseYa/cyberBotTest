@@ -6,16 +6,16 @@ const guildSchema = mongoose.Schema({
      guildID: String,
      guildName: String,
      prefix: {
-          type: String,
-          default: defaults.prefix,
+          "type": String,
+          "default": defaults.prefix,
      },
      logChannel: {
-          type: String,
-          default: defaults.logChannel,
+          "type": String,
+          "default": defaults.logChannel,
      },
      welcomeChannel: {
-          type: String,
-          default: defaults.welcomeChannel,
+          "type": String,
+          "default": defaults.welcomeChannel,
      },
 });
 

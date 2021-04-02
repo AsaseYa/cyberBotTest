@@ -9,11 +9,9 @@ module.exports = async (client, message) => {
      //si le msg est en DM
      if (message.channel.type === "dm")
           return client.emit("directMessage", message);
-          
-
+     
      const settings = await client.getGuild(message.guild);
      const dbUser = await client.getUser(message.member);
-
 
      //si l'author est le bot
      if (message.author.bot) return;
@@ -34,11 +32,11 @@ module.exports = async (client, message) => {
      if (expCd >= 8 && expCd <= 11) {
           await client.addExp(client, message.member, expToAdd);
      }
-
+     
      const userLevel = Math.floor(0.1 * Math.sqrt(dbUser.experience));
      if (dbUser.level < userLevel) {
-          message.reply(
-               `Bravo, tu viens de gagner un niveau d'accréditation. Tu es maintenant niveau \`${userLevel}\`. La France est fier de toi!`
+          message.channel.send(
+               `Bravo ${dbUser.name}, tu viens de gagner un niveau d'accréditation. Tu es maintenant niveau \`${userLevel}\`. La France est fière de toi!`
           );
           client.updateUser(message.member, { level: userLevel });
      }
